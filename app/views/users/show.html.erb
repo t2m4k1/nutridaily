@@ -1,0 +1,12 @@
+<% if logged_in? %>
+    <% if current_user == @user %>
+        Welcome Home <%= @user.name %>
+        <p>
+        <%= @user.name %>, <%= @user.email %>
+        <%= link_to "Log out", logout_path, method: :delete %>
+    <% else %>
+        Viewing Profile of: <%= @user.name %>
+    <% end %>
+<% else %>
+        Profiles are not public, please register!
+<% end %>
