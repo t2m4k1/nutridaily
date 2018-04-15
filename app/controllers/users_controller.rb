@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @user = User.new(complete)
     @user.user_groups << UserGroup.new(group: Group.find_by(name: 'User'), role: 'Normal')
     @user.save
+    log_in @user
     redirect_to @user
   end
 

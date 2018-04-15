@@ -2,15 +2,33 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>NutriDaily</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <body <%= controller_name == 'session' ? "class='pull_top'" : '' %>>
+
+    <div class="topnav">
+      <ul>
+          <li class="main-nav"> <%= link_to "nutridaily.", root_path, :class => current_class?(root_path) %> </li>
+          <div class="topnav-alt">
+              <li> <%= link_to "recipes", recipes_path, :class => current_class?(recipes_path) %> </li>
+              <li> <%= link_to "ingredients", ingredients_path, :class => current_class?(ingredients_path) %> </li>
+              <% if logged_in? && current_user %>
+                  <span class="right"><li class="right"> <%= link_to "log out", logout_path, method: :delete %> </li></span>
+                  <span class="right"><li> <%= link_to "profile", current_user, :class => current_class?(current_user) %> </li></span>
+              <% else %>
+                  <span class="right"><li> <%= link_to "log in", login_path, :class => current_class?(login_path) %> </li></span>
+                  <span class="right"><li> <%= link_to "register", new_user_path, :class => current_class?(new_user_path) %> </li></span>
+              <% end %>
+          </div>
+      </ul>
+    </div>
   </head>
 
   <body>
+    <div class="content">
     <%= yield %>
+    </div>
   </body>
 </html>

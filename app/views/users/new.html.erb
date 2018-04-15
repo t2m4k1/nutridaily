@@ -1,53 +1,28 @@
 <% provide(:title, 'Sign up') %>
-<h1>User Registration</h1>
-<table>
 <%= form_for(@user) do |user_form| %>
-  <tr class="fields">
-      <td>
-          <%= user_form.label :name %>
-          <%= user_form.text_field :name %>
-      </td>
-  </tr>
-  <tr class="fields">
-      <td>
-          <%= user_form.label :email %>
-          <%= user_form.email_field :email %>
-      </td>
-  </tr>
-
-  <tr class="fields">
-      <td>
-          <%= user_form.label :password %>
-          <%= user_form.password_field :password %>
-      </td>
-  </tr>
-
-  <tr class="fields">
-      <td>
-          <%= user_form.label :password_confirmation, "Confirmation" %>
-          <%= user_form.password_field :password_confirmation %>
-      </td>
-  </tr>
-
-  <tr class="fields">
-      <td>
-          <%= user_form.label :country_id %>
-          <%= user_form.select :country_id, options_for_select(Country.all.map{|s|[s.name, s.id]}) %>
-      </td>
-  </tr>
-
+  <div class="vertical_user_input">
+      <%= user_form.label :name %> <%= user_form.text_field :name %>
+  </div>
+  <div class="vertical_user_input">
+      <%= user_form.label :email %> <%= user_form.email_field :email %>
+  </div>
+  <div class="vertical_user_input">
+      <%= user_form.label :password %> <%= user_form.password_field :password %>
+  </div>
+  <div class="vertical_user_input">
+      <%= user_form.label :password_confirmation, "Confirmation" %> <%= user_form.password_field :password_confirmation %>
+  </div>
+  <div class="vertical_user_input">
+      <%= user_form.label :country_id %>
+      <%= user_form.select :country_id, options_for_select(Country.all.map{|s|[s.name, s.id]}) %>
+  </div>
   <%= user_form.fields_for :user_languages, @user.user_languages do |userlangs_form| %>
-  <tr class="fields">
-      <td>
-          <%= userlangs_form.label :language_id %>
-          <%= userlangs_form.select :language_id, options_for_select(Language.all.map{|s|[s.name, s.id]}) %>
-      </td>
-  </tr>
+      <div class="vertical_user_input">
+      <%= userlangs_form.label :language_id %>
+      <%= userlangs_form.select :language_id, options_for_select(Language.all.map{|s|[s.name, s.id]}) %>
+      </div>
   <% end %>
-<tr>
-    <td>
-        <%= user_form.submit %>
-    </td>
-</tr>
-</table>
+  <div class="vertical_user_input">
+      <%= user_form.submit %>
+  </div>
 <% end %>
