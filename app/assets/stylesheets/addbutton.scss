@@ -1,0 +1,28 @@
+#add-button {
+    position: fixed;
+    font-size: 45px;
+    font-weight: bold;
+    bottom: 15px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    padding: 0 0 0 0;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    outline: 5px;
+    border: 0px;
+    background-color: black;
+    color: white;
+}
+
+#add-button:hover {
+    background-color: darkgrey;
+    color: black;
+}
+#add-button:active {
+    color: white;
+}
+#add-button:focus {
+    border: solid darkgrey 1px;
+}
