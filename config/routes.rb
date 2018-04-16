@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :ingredients
   resources :recipes
   get    '/login',   to: 'sessions#new'
+  get    '/licenses',   to: 'licenses#index'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   post   '/subscriptions/create',   to: 'subscriptions#create'

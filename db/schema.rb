@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20180416165045) do
   create_table "recipes", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.integer "serving_count", null: false
+    t.boolean "is_drink", default: false
     t.bigint "language_id", null: false
     t.bigint "added_by_id", null: false
     t.datetime "created_at", null: false
@@ -150,7 +151,7 @@ ActiveRecord::Schema.define(version: 20180416165045) do
     t.string "reported_type"
     t.integer "score_impact"
     t.integer "minimum_score"
-    t.boolean "system_users_only"
+    t.integer "minimum_permission_level", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_report_categories_on_name"

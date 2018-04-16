@@ -5,7 +5,7 @@ class CreateReportCategories < ActiveRecord::Migration[5.1]
       t.string :reported_type
       t.integer :score_impact
       t.integer :minimum_score
-      t.boolean :system_users_only
+      t.integer :minimum_permission_level, default: 0
       t.timestamps
     end
   end
