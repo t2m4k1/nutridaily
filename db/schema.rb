@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412110629) do
+ActiveRecord::Schema.define(version: 20180416165045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,14 +42,6 @@ ActiveRecord::Schema.define(version: 20180412110629) do
     t.index ["name"], name: "index_countries_on_name", unique: true
   end
 
-  create_table "groups", force: :cascade do |t|
-    t.string "name", limit: 35, null: false
-    t.boolean "system_group", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_groups_on_name", unique: true
-  end
-
   create_table "images", force: :cascade do |t|
     t.string "name", limit: 30, null: false
     t.string "path", limit: 30, null: false
@@ -75,27 +67,6 @@ ActiveRecord::Schema.define(version: 20180412110629) do
     t.index ["ingredient_id"], name: "index_ingredient_countries_on_ingredient_id"
   end
 
-  create_table "ingredient_infos", force: :cascade do |t|
-    t.string "measurement_name", limit: 12, null: false
-    t.integer "kcal", null: false
-    t.float "protein", null: false
-    t.float "carbohydrates", null: false
-    t.float "sugar", null: false
-    t.float "fat", null: false
-    t.float "saturates", null: false
-    t.float "salt", null: false
-    t.float "fibre"
-    t.float "alcohol"
-    t.float "price"
-    t.bigint "ingredient_id"
-    t.bigint "added_by_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["added_by_id"], name: "index_ingredient_infos_on_added_by_id"
-    t.index ["ingredient_id"], name: "index_ingredient_infos_on_ingredient_id"
-    t.index ["measurement_name", "kcal", "protein", "carbohydrates", "sugar", "fat", "saturates", "salt"], name: "index_measurement_name_and_big_seven", unique: true
-  end
-
   create_table "ingredients", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.bigint "language_id", null: false
@@ -114,16 +85,37 @@ ActiveRecord::Schema.define(version: 20180412110629) do
     t.index ["name"], name: "index_languages_on_name", unique: true
   end
 
+  create_table "nutritional_infos", force: :cascade do |t|
+    t.string "measurement_name", limit: 12, null: false
+    t.integer "kcal", null: false
+    t.float "protein", null: false
+    t.float "carbohydrates", null: false
+    t.float "sugar", null: false
+    t.float "fat", null: false
+    t.float "saturates", null: false
+    t.float "salt", null: false
+    t.float "fibre"
+    t.float "alcohol"
+    t.float "price"
+    t.bigint "ingredient_id"
+    t.bigint "added_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["added_by_id"], name: "index_nutritional_infos_on_added_by_id"
+    t.index ["ingredient_id"], name: "index_nutritional_infos_on_ingredient_id"
+    t.index ["measurement_name", "kcal", "protein", "carbohydrates", "sugar", "fat", "saturates", "salt"], name: "index_measurement_name_and_big_seven", unique: true
+  end
+
   create_table "recipe_steps", force: :cascade do |t|
     t.integer "number"
     t.text "description", null: false
     t.integer "duration", null: false
-    t.bigint "ingredient_info_id"
+    t.bigint "nutritional_info_id"
     t.float "measurement_multiplier"
     t.bigint "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ingredient_info_id"], name: "index_recipe_steps_on_ingredient_info_id"
+    t.index ["nutritional_info_id"], name: "index_recipe_steps_on_nutritional_info_id"
     t.index ["recipe_id"], name: "index_recipe_steps_on_recipe_id"
   end
 
@@ -175,27 +167,33 @@ ActiveRecord::Schema.define(version: 20180412110629) do
     t.index ["report_category_id"], name: "index_report_category_languages_on_report_category_id"
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "subscribed_to_type"
+    t.bigint "subscribed_to_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subscribed_to_type", "subscribed_to_id"], name: "index_subscriptions_on_subscribed_to_type_and_subscribed_to_id"
+    t.index ["user_id", "subscribed_to_id", "subscribed_to_type"], name: "index_sub_subto_subcat", unique: true
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
+  create_table "tag_names", force: :cascade do |t|
+    t.string "name", limit: 20, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tag_names_on_name", unique: true
+  end
+
   create_table "tags", force: :cascade do |t|
-    t.string "name", limit: 12, null: false
-    t.bigint "added_by_id", null: false
+    t.bigint "tag_name_id", null: false
     t.string "tagged_type"
     t.bigint "tagged_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["added_by_id"], name: "index_tags_on_added_by_id"
-    t.index ["name", "tagged_id", "tagged_type"], name: "index_tags_on_name_and_tagged_id_and_tagged_type", unique: true
+    t.index ["tag_name_id", "tagged_id", "tagged_type"], name: "index_tags_on_tag_name_id_and_tagged_id_and_tagged_type", unique: true
+    t.index ["tag_name_id"], name: "index_tags_on_tag_name_id"
     t.index ["tagged_type", "tagged_id"], name: "index_tags_on_tagged_type_and_tagged_id"
-  end
-
-  create_table "user_groups", force: :cascade do |t|
-    t.string "role", null: false
-    t.bigint "user_id", null: false
-    t.bigint "group_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_user_groups_on_group_id"
-    t.index ["user_id", "group_id"], name: "index_user_groups_on_user_id_and_group_id", unique: true
-    t.index ["user_id"], name: "index_user_groups_on_user_id"
   end
 
   create_table "user_languages", force: :cascade do |t|
@@ -214,8 +212,9 @@ ActiveRecord::Schema.define(version: 20180412110629) do
     t.string "password_digest", null: false
     t.string "remember_digest"
     t.text "biography"
-    t.boolean "verified_email", null: false
-    t.integer "score"
+    t.boolean "verified_email", default: false
+    t.integer "score", default: 0
+    t.integer "permission_level", default: 0
     t.bigint "country_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

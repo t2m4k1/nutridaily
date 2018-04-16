@@ -11,4 +11,6 @@ class Recipe < ApplicationRecord
 
   has_many :votes, as: :voted_on, dependent: :destroy
   has_many :users, through: :votes
+
+  has_many :tags, as: :tagged, dependent: :destroy
 end

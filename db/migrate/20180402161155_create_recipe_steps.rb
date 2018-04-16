@@ -4,7 +4,7 @@ class CreateRecipeSteps < ActiveRecord::Migration[5.1]
       t.integer :number 
       t.text :description, limit: 250, null: false
       t.integer :duration, null: false
-      t.references :ingredient_info
+      t.references :nutritional_info
       t.float :measurement_multiplier
       t.references :recipe
       t.timestamps

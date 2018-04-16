@@ -1,29 +1,33 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
   validates :name, presence: true, length: { maximum: 15 }
+  enum permission_level: {user: 0, moderator: 100, admin: 9999}
 
   before_save { self.email = email.downcase }
   before_save { self.name = name.downcase }
   has_secure_password
   belongs_to :country, optional: true
-  has_many :user_groups, dependent: :destroy
-  has_many :groups, :through => :user_groups
 
   has_many :user_languages, dependent: :destroy
   has_many :languages, :through => :user_languages
 
   has_many :ingredients, foreign_key: :added_by
   has_many :ingredient_infos, foreign_key: :added_by
-  has_many :recipes, foreign_key: :added_by
 
+  has_many :recipes, foreign_key: :added_by
 
   has_many :received_reports, class_name: 'ReportCase', as: :reported, dependent: :destroy
   has_many :filed_reports, class_name: 'ReportCase', dependent: :destroy
 
+  has_many :subscribers, class_name: 'Subscription', as: :subscribed_to, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
+
   has_many :cook_books, foreign_key: :added_by, dependent: :destroy
-  has_many :images, as: :depicted, dependent: :destroy
+
+  has_many :uploaded_images, foreign_key: :added_by, class_name: 'Image', dependent: :destroy
+  has_many :profile_pictures, class_name: 'Image', as: :depicted, dependent: :destroy
+
   has_many :votes, dependent: :destroy
-  has_many :reports, dependent: :destroy
   
   accepts_nested_attributes_for :user_languages
 

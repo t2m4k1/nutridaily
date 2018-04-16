@@ -1,3 +1,3 @@
 class RecipeStep < ApplicationRecord
-  belongs_to :ingredient_info
+  belongs_to :nutritional_info
 end
