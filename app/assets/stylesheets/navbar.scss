@@ -1,0 +1,75 @@
+.topnav{
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+
+.topnav ul {
+    height: 57px;
+    width: 100%;
+    display: block;
+    position: fixed;
+    list-style-type: none;
+    background-color: black;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    box-shadow: 0px 1px 3px 1px lightgrey;
+    z-index: 30;
+}
+
+.main-nav{
+    font-family: "Arial Black";
+    font-size: 21px;
+}
+
+.alt-nav{
+    font-family: "Arial";
+    height: 100%;
+    font-size: 18px;
+}
+
+.topnav ul li {
+ height: 100%;
+ float: left;
+ }
+
+
+
+/* Style the links inside the navigation bar */
+.topnav ul li a{
+    float: left;
+    height: 100%;
+    color: white;
+    padding-right: 20px;
+    padding-left: 20px;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.main-nav a{
+    padding-top: 10px;
+}
+
+.alt-nav li a{
+    padding-top: 16px;
+}
+
+
+
+/* Change the color of links on hover */
+.topnav li a:hover {
+    background-color: lightgrey;
+    color: black;
+}
+
+.topnav span.right {
+    float: right;
+    height: 100%;
+}
+
+/* Add a color to the active/current link */
+.topnav li a.active {
+    background-color: #ccc;
+}
+
+
+
