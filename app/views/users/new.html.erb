@@ -1,3 +1,8 @@
+
+<% if logged_in? %>
+    <%controller.redirect_to current_user %>
+<% end %>
+
 <% provide(:title, 'Sign up') %>
 <%= form_for(@user) do |user_form| %>
   <div class="vertical_user_input">

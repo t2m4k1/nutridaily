@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :languages, :through => :user_languages
 
   has_many :ingredients, foreign_key: :added_by
-  has_many :ingredient_infos, foreign_key: :added_by
+  has_many :nutritional_infos, foreign_key: :added_by
 
   has_many :recipes, foreign_key: :added_by
 

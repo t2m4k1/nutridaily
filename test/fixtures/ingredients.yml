@@ -4,12 +4,12 @@ one:
   name: MyString
   created_at: 2018-04-01 22:32:48
   photo: one
-  ingredient_info: one
+  nutritional_info: one
   added_by: one
 
 two:
   name: MyString
   created_at: 2018-04-01 22:32:48
   photo: two
-  ingredient_info: two
+  nutritional_info: two
   added_by: two

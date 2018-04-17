@@ -2,10 +2,6 @@
 
 one:
   name: MyString
-  icon: one
-  recipe: one
 
 two:
   name: MyString
-  icon: two
-  recipe: two

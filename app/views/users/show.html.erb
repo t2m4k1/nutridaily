@@ -9,7 +9,7 @@
         <% if current_user.subscriptions.exists?(subscribed_to: @user) %>
             <span>You're a Subscriber!</span>
         <% else %>
-            <%= link_to 'Subscribe', {:controller => "subscriptions", :action => "create", :user_id => current_user, :subscribed_to_id => @user, :subscribed_to_type => "User"}, :method => :post %>
+
         <% end %>
     <% end %>
 <% else %>

@@ -2,8 +2,6 @@
 
 one:
   name: MyString
-  icon: one
 
 two:
   name: MyString
-  icon: two
