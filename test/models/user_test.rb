@@ -24,7 +24,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "language should be present" do
-    @user.languages = nil;
+    @user.languages = [];
     assert_not @user.valid?
   end
 
