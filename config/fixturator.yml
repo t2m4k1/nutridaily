@@ -1,0 +1,24 @@
+models:
+ - name: CookBook
+ - name: CookBookRecipe
+ - name: Country
+ - name: Image
+ - name: Ingredient
+ - name: IngredientCountry
+ - name: Language
+ - name: NutritionalInfo
+ - name: Recipe
+ - name: RecipeStep
+ - name: ReportCase
+ - name: ReportCategory
+ - name: ReportCategoryLanguage
+ - name: Subscription
+ - name: Tag
+ - name: TagName
+ - name: User
+   exclude:
+     - remember_digest
+     - password_digest
+ - name: UserLanguage
+ - name: Vote
+
