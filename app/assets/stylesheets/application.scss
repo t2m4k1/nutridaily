@@ -45,3 +45,17 @@ body{
 .vertical_user_input label{
     margin: 0px auto 0 auto;
 }
+
+.alert{
+    background-color: #FF3232;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: Arial;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    
+}

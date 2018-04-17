@@ -1,10 +1,14 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
-  validates :name, presence: true, length: { maximum: 15 }
-  enum permission_level: {user: 0, moderator: 100, admin: 9999}
-
   before_save { self.email = email.downcase }
   before_save { self.name = name.downcase }
+  validates :name, presence: true, length: { maximum: 15 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :password, presence: true, length: { minimum: 6 }
+  validates :languages, presence: true
+  validates :country, presence: true
+
+  enum permission_level: {user: 0, moderator: 100, admin: 9999}
   has_secure_password
   belongs_to :country, optional: true
 
