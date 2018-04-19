@@ -1,17 +1,15 @@
-<% if logged_in? %>
-    <% if current_user == @user %>
-        Welcome Home <%= @user.name %>
-        <%= @user.name %>, <%= @user.email %>
-        <span id: "subscribers">Subscribers: <%= @user.subscribers.length %></span>
-        <span id: "subscriptions">Subscriptions: <%= @user.subscriptions.where(subscribed_to_type: "User").length %></span>
-    <% else %>
-        Viewing Profile of: <%= @user.name %>
-        <% if current_user.subscriptions.exists?(subscribed_to: @user) %>
-            <span>You're a Subscriber!</span>
-        <% else %>
+<% if current_user == @user %>
+    Welcome Home <%= @user.name %>
+    <%= @user.name %>, <%= @user.email %>
+    <span id: "subscribers">Subscribers: <%= @user.subscribers.length %></span>
+    <span id: "subscriptions">Subscriptions: <%= @user.subscriptions.where(subscribed_to_type: "User").length %></span>
+<%= link_to "Edit Profile", edit_user_path(current_user) %>
 
-        <% end %>
-    <% end %>
 <% else %>
-        Profiles are not public, please register!
+    Viewing Profile of: <%= @user.name %>
+    <% if current_user.subscriptions.exists?(subscribed_to: @user) %>
+        <span>You're a Subscriber!</span>
+    <% else %>
+
+    <% end %>
 <% end %>

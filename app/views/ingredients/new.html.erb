@@ -1,6 +1,3 @@
-<% unless logged_in? %>
-    <%controller.redirect_to ingredients_path %>
-<% end %>
 <%= form_for(@ingredient) do |user_form| %>
       <%= user_form.label :name %> <%= user_form.text_field :name %>
       <%= user_form.submit %>
