@@ -1,8 +1,8 @@
 class CreateRememberDigests < ActiveRecord::Migration[5.1]
   def change
     create_table :remember_digests do |t|
-      t.references :user
-      t.string :digest
+      t.references :user, null: false
+      t.string :digest, null: false
       t.datetime :last_login
       t.timestamps
     end

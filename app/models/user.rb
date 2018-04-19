@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   attr_accessor :remember_token
 
   before_save { self.email = email.downcase }
@@ -11,6 +10,7 @@ class User < ApplicationRecord
   validates :user_languages, presence: true
   validates :country, presence: true
   enum permission_level: {user: 0, moderator: 100, admin: 9999}
+
   has_secure_password
   has_secure_token :authentication_id
 
@@ -43,12 +43,12 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :user_languages
   
   def find_fitting_digest(remember_token)
-    output = nil
     self.remember_digests.each do |remember_digest|
-        if BCrypt::Password.new(remember_digest.digest).is_password?(remember_token)
+        if !remember_token.nil? && BCrypt::Password.new(remember_digest.digest).is_password?(remember_token)
             return remember_digest
         end
     end
+    nil
   end
 
   def forget_token(remember_token)
@@ -57,7 +57,6 @@ class User < ApplicationRecord
     else
         puts 'cant find token'
         puts RememberDigest.digest(remember_token)
-        raise
     end
   end
 

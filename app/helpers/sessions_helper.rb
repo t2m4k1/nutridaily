@@ -11,7 +11,7 @@ module SessionsHelper
 
  def forget(user)
     user.forget_token(cookies.signed[:remember_token])
-    cookies.delete(:user_id)
+    cookies.delete(:authentication_id)
     cookies.delete(:remember_token)
  end
 

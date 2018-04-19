@@ -133,8 +133,8 @@ ActiveRecord::Schema.define(version: 20180419074953) do
   end
 
   create_table "remember_digests", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "digest"
+    t.bigint "user_id", null: false
+    t.string "digest", null: false
     t.datetime "last_login"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

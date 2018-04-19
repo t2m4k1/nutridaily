@@ -16,7 +16,7 @@ class UsersController < ApplicationController
         log_in @user
         redirect_to @user
     else
-        flash.now[:danger] = @user.errors.full_messages
+        flash.now[:danger] = 'User can\'t be registered!'
         render 'new'
     end
   end
