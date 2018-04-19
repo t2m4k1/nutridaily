@@ -1,16 +1,23 @@
 class User < ApplicationRecord
+
   attr_accessor :remember_token
+
   before_save { self.email = email.downcase }
   before_save { self.name = name.downcase }
   validates :name, presence: true, length: { maximum: 15 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :authentication_id, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
-  validates :languages, presence: true
+  validates :user_languages, presence: true
   validates :country, presence: true
-
   enum permission_level: {user: 0, moderator: 100, admin: 9999}
   has_secure_password
+  has_secure_token :authentication_id
+
+
   belongs_to :country, optional: true
+
+  has_many :remember_digests, dependent: :destroy
 
   has_many :user_languages, dependent: :destroy
   has_many :languages, :through => :user_languages
@@ -34,23 +41,40 @@ class User < ApplicationRecord
   has_many :votes, dependent: :destroy
   
   accepts_nested_attributes_for :user_languages
-
-  def self.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-    BCrypt::Password.create(string, cost: cost)
+  
+  def find_fitting_digest(remember_token)
+    output = nil
+    self.remember_digests.each do |remember_digest|
+        if BCrypt::Password.new(remember_digest.digest).is_password?(remember_token)
+            return remember_digest
+        end
+    end
   end
 
-  def self.new_token
-    SecureRandom.urlsafe_base64
+  def forget_token(remember_token)
+    if @active_token = find_fitting_digest(remember_token)
+        @active_token.destroy
+    else
+        puts 'cant find token'
+        puts RememberDigest.digest(remember_token)
+        raise
+    end
   end
 
-  def remember
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
+  def forget_all_tokens
+    self.remember_digests.destroy_all
+  end
+
+  def append_remember
+    self.remember_token = RememberDigest.new_token
+    self.remember_digests << RememberDigest.new(digest: RememberDigest.digest(remember_token))
+    self.remember_token
   end
 
   def authenticated?(remember_token)
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+    if @digest = find_fitting_digest.nil?
+        @digest.refresh_last_login_timestamp
+    end
   end
 
 end

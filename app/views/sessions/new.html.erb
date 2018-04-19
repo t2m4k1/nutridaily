@@ -1,24 +1,23 @@
-<% provide(:title, "Log in") %>
+<% provide(:title, 'Log in') %>
 <% if !logged_in? %>
         <%= form_for(:session, url: login_path) do |f| %>
 
-        <div class="vertical_user_input">
-            <%= f.label :nameoremail, 'Username/Email' %>
-            <%= f.text_field :nameoremail, class: 'form-control' %>
-        </div>
+            <%= f.label :nameoremail, 'Username/Email', class: 'vertical_user_input'  %>
+            <%= f.text_field :nameoremail, class: 'vertical_user_input' %>
 
-        <div class="vertical_user_input">
-          <%= f.label :password %>
-          <%= f.password_field :password, class: 'form-control' %>
-        </div>
+            <%= f.label :password, class: 'vertical_user_input' %>
+            <%= f.password_field :password, class: 'vertical_user_input' %>
 
-        <div class="vertical_user_input">
-          <%= f.submit "Log in", class: "btn btn-primary" %>
-        </div>
+            <%= f.submit 'Log in', class: 'vertical_user_input'%>
+
+            <%= f.label :remember_me, class: 'vertical_user_input' do %>
+                <%= f.check_box :remember_me %>
+                <span>Remember me on this computer</span>
+            <% end %>
         <% end %>
 
-        <div class="vertical_user_input">
-        <%= link_to "New User? Sign up now!", new_user_path %>
+        <div class='vertical_user_input'>
+            <%= link_to 'New User? Sign up now!', new_user_path %>
         </div>
 <% else %>
     <%controller.redirect_to current_user %>

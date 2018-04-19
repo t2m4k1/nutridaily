@@ -20,17 +20,20 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
       get root_path
       assert flash.empty?
     end
+
     test "login with remembering" do
-      log_in_as(@user, remember_me: '1')
-      assert_not_empty cookies['remember_token']
+      log_in_as(@user)
+      assert_same(cookies.signed['user_id'], @user.id)
+      assert(@user.authenticate?(cookies['remember_token']))
     end
 
-    test "login without remembering" do
+    test "multiple devices log in" do
       # Log in to set the cookie.
       log_in_as(@user)
-      # Log in again and verify that the cookie is deleted.
+      tmp = @user.remember_digest;
       log_in_as(@user)
-      assert_empty cookies['remember_token']
+      assert_equal(tmp, @user.remember_digest)
+      # Log in again and verify that the cookie is deleted.
     end
 
 end

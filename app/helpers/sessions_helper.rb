@@ -1,23 +1,30 @@
 module SessionsHelper
-
   # Logs in the given user.
   def log_in(user)
-    user.remember
-    cookies.permanent.signed[:user_id] = user.id
-    cookies.permanent[:remember_token] = user.remember_token
+    session[:authentication_id] = user.authentication_id
   end
+  
+ def remember(user)
+    cookies.signed[:authentication_id] = user.authentication_id
+    cookies.signed[:remember_token] = user.append_remember
+ end
+
+ def forget(user)
+    user.forget_token(cookies.signed[:remember_token])
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
+ end
 
   # Returns the user corresponding to the remember token cookie.
-  def current_user
-    if @current_user.nil?
-        if (user_id = cookies.signed[:user_id])
-          user = User.find_by(id: user_id)
-          if user && user.authenticated?(cookies[:remember_token])
-            @current_user = user
-          end
-        end
-    else
-        @current_user
+ def current_user
+    if (authentication_id = session[:authentication_id])
+      @current_user ||= User.find_by(authentication_id: authentication_id)
+    elsif (authentication_id = cookies.signed[:authentication_id])
+      user = User.find_by(authentication_id: authentication_id)
+      if user && user.authenticated?(cookies[:remember_token])
+        log_in user
+        @current_user = user
+      end
     end
   end
 
@@ -27,14 +34,12 @@ module SessionsHelper
   end
 
   # Logs out the current user.
-  def log_out
-    cookies.delete :user_id
-    cookies.delete :remember_token
-  end
 
   def log_out
+    @current_user.forget_token(cookies.signed[:remember_token])
     @current_user = nil
-    cookies.delete :user_id
+    session.delete(:authentication_id)
+    cookies.delete :authentication_id
     cookies.delete :remember_token
   end
 end

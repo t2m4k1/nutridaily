@@ -3,8 +3,26 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  # Returns true if a test user is logged in.
+  def is_logged_in?
+      @user = User.find(cookies.signed['user_id'])
+      @user.authenticated?(cookies['remember_token'])
+  end
+
+  # Log in as a particular user.
+  def log_in_as(user)
+    user.remember()
+    cookies.permanent.signed['user_id'] = user.id
+    cookies.permanent['remember_token'] = user.remember_token
+  end
+end
+
+class ActionDispatch::IntegrationTest
+
+  # Log in as a particular user.
+  def log_in_as(user, password: 'password')
+    post login_path, params: { session: { nameoremail: user.email, password: password } }
+  end
 end

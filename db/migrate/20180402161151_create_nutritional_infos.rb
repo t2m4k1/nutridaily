@@ -16,6 +16,6 @@ class CreateNutritionalInfos < ActiveRecord::Migration[5.1]
       t.references :added_by, references: :user, null:false
       t.timestamps
     end
-    add_index :nutritional_infos, [:measurement_name, :kcal, :protein, :carbohydrates, :sugar, :fat, :saturates, :salt], unique: true, name: 'index_measurement_name_and_big_seven'
+    add_index :nutritional_infos, [:measurement_name, :ingredient_id], unique: true
   end
 end

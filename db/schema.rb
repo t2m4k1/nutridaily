@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416165045) do
+ActiveRecord::Schema.define(version: 20180419074953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 20180416165045) do
     t.datetime "updated_at", null: false
     t.index ["added_by_id"], name: "index_nutritional_infos_on_added_by_id"
     t.index ["ingredient_id"], name: "index_nutritional_infos_on_ingredient_id"
-    t.index ["measurement_name", "kcal", "protein", "carbohydrates", "sugar", "fat", "saturates", "salt"], name: "index_measurement_name_and_big_seven", unique: true
+    t.index ["measurement_name", "ingredient_id"], name: "index_nutritional_infos_on_measurement_name_and_ingredient_id", unique: true
   end
 
   create_table "recipe_steps", force: :cascade do |t|
@@ -130,6 +130,16 @@ ActiveRecord::Schema.define(version: 20180416165045) do
     t.index ["added_by_id"], name: "index_recipes_on_added_by_id"
     t.index ["language_id"], name: "index_recipes_on_language_id"
     t.index ["name", "language_id"], name: "index_recipes_on_name_and_language_id", unique: true
+  end
+
+  create_table "remember_digests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "digest"
+    t.datetime "last_login"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "digest"], name: "index_remember_digests_on_user_id_and_digest", unique: true
+    t.index ["user_id"], name: "index_remember_digests_on_user_id"
   end
 
   create_table "report_cases", force: :cascade do |t|
@@ -208,10 +218,10 @@ ActiveRecord::Schema.define(version: 20180416165045) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "authentication_id"
     t.string "name", limit: 25, null: false
     t.string "email", limit: 50, null: false
     t.string "password_digest", null: false
-    t.string "remember_digest"
     t.text "biography"
     t.boolean "verified_email", default: false
     t.integer "score", default: 0
@@ -219,6 +229,7 @@ ActiveRecord::Schema.define(version: 20180416165045) do
     t.bigint "country_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["authentication_id"], name: "index_users_on_authentication_id", unique: true
     t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true

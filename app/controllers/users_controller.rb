@@ -12,9 +12,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.save
-    log_in @user
-    redirect_to @user
+    if @user.save
+        log_in @user
+        redirect_to @user
+    else
+        flash.now[:danger] = @user.errors.full_messages
+        render 'new'
+    end
   end
 
 
