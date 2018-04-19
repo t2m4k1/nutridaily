@@ -20,6 +20,9 @@ Look through data-model (link)
 Look through models folder and check files  
 Look through db/migrate folder and check files  
 
+Rails Book, free to read:  
+https://www.railstutorial.org/book  
+
 Quickstart:  
 open rails console  
 cd to project folder  
