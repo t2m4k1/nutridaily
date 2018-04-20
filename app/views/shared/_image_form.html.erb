@@ -1,0 +1,9 @@
+<%= form_for Image.new, html: { multipart: true } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <%= f.file_field :path %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'vertical_user_input' %>
+  <%= f.submit "Save Image", class: "btn btn-primary" %>
+
+<% end %>

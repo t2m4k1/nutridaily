@@ -3,6 +3,8 @@
     <%= @user.name %>, <%= @user.email %>
     <span id: "subscribers">Subscribers: <%= @user.subscribers.length %></span>
     <span id: "subscriptions">Subscriptions: <%= @user.subscriptions.where(subscribed_to_type: "User").length %></span>
+    <%= render 'shared/image_form' %>
+
 <%= link_to "Edit Profile", edit_user_path(current_user) %>
 
 <% else %>

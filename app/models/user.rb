@@ -40,7 +40,7 @@ class User < ApplicationRecord
 
   has_many :votes, dependent: :destroy
   
-  accepts_nested_attributes_for :user_languages
+  accepts_nested_attributes_for :user_languages, :profile_pictures
   
   def find_fitting_digest(remember_token)
     self.remember_digests.each do |remember_digest|

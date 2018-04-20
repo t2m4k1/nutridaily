@@ -22,6 +22,7 @@ class UsersController < ApplicationController
         flash[:success] = "Profile updated"
         redirect_to user
     else
+      flash.now[:danger] = user.errors.full_messages
       render 'edit'
     end
   end
@@ -40,7 +41,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :country_id, :password_confirmation, user_language_ids: [], user_languages_attributes: [:language_id, :user_id])
+    params.require(:user).permit(:name, :email, :password, :country_id, :password_confirmation,:profile_pictures_attributes => [:name, :path],  user_language_ids: [], user_languages_attributes: [:language_id, :user_id])
   end
 
   def logged_in_user
