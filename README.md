@@ -23,6 +23,9 @@ Look through db/migrate folder and check files
 Rails Book, free to read:  
 https://www.railstutorial.org/book  
 
+Interesting cast about nested forms:  
+http://railscasts.com/episodes/196-nested-model-form-part-1?autoplay=true  
+
 Quickstart:  
 open rails console  
 cd to project folder  
