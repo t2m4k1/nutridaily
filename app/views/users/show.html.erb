@@ -1,13 +1,10 @@
 <% if current_user == @user %>
-    Welcome Home <%= @user.name %>
-    <%= @user.name %>, <%= @user.email %>
-    <span id: "subscribers">Subscribers: <%= @user.subscribers.length %></span>
-    <span id: "subscriptions">Subscriptions: <%= @user.subscriptions.where(subscribed_to_type: "User").length %></span>
-    <span> <%= render partial: 'images/form', locals: {tmp: user_images_path(@user)} %> </span>
-
-
-
-<%= link_to "Edit Profile", edit_user_path(current_user) %>
+    <div class = "user_text"> Welcome Home <%= @user.name %> </div>
+    <div class = "user_text" <%= @user.name %>, <%= @user.email %> </div>
+    <div class = "user_text"> Subscribers: <%= @user.subscribers.length %></div>
+    <div class = "user_text">Subscriptions: <%= @user.subscriptions.where(subscribed_to_type: "User").length %></div>
+    <div class = "user_text"> <%= link_to "Edit Profile", edit_user_path(current_user) %> </div>
+    <div id = "submit_image"> <%= render partial: 'images/form', locals: {tmp: user_images_path(@user)} %> </div>
 
 <% else %>
     Viewing Profile of: <%= @user.name %>
@@ -17,9 +14,7 @@
 
     <% end %>
 <% end %>
-<% if logged_in? %>
-    <% for image in @user.images %>
-        <%= image_tag image.path_url(:thumb).to_s  %>
-    <% end %>
-<% end %>
 
+<% if logged_in? %>
+<% end %>
+<%= render partial: 'image', collection: @user.images %>
