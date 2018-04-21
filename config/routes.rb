@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
-  resources :users
+  resources :users do
+    resources :images
+  end
+
   resources :ingredients
   resources :recipes
   resources :subscriptions

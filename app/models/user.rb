@@ -36,11 +36,11 @@ class User < ApplicationRecord
   has_many :cook_books, foreign_key: :added_by, dependent: :destroy
 
   has_many :uploaded_images, foreign_key: :added_by, class_name: 'Image', dependent: :destroy
-  has_many :profile_pictures, class_name: 'Image', as: :depicted, dependent: :destroy
+  has_many :images, class_name: 'Image', as: :depicted, dependent: :destroy
 
   has_many :votes, dependent: :destroy
   
-  accepts_nested_attributes_for :user_languages, :profile_pictures
+  accepts_nested_attributes_for :user_languages, :images
   
   def find_fitting_digest(remember_token)
     self.remember_digests.each do |remember_digest|
