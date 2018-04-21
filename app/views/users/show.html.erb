@@ -19,7 +19,7 @@
 <% end %>
 <% if logged_in? %>
     <% for image in @user.images %>
-        <%= image_tag image.path_url.to_s  %>
+        <%= image_tag image.path_url(:thumb).to_s  %>
     <% end %>
 <% end %>
 

@@ -14,6 +14,8 @@ Ruby-Version: 2.3.3  --> included
 Additionally install  
 Postgresql: 10.3  
 Install NodeJS
+Install ImageMagick (check Install legacy utilities (e.g. convert) during installation:  
+https://www.imagemagick.org/download/binaries/ImageMagick-7.0.7-28-Q16-x64-dll.exe  
 
 Read about rails associations types (including polymorphic has many)  
 Look through data-model (link)  
