@@ -2,7 +2,6 @@ class ImageFileUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
-  MiniMagick.cli_path = 'C:/Program Files (x86)/ImageMagick/bin'
 
   # Choose what kind of storage to use for this uploader:
   storage :file
