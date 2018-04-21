@@ -7,7 +7,13 @@ class IngredientsController < ApplicationController
   def create
     @ingredient = Ingredient.new(ingredient_params)
     @ingredient.added_by = current_user;
-    @ingredient.save!
+    if @ingredient.save
+        redirect_back_or ingredients_path
+        flash.now[:success] = 'Ingredient was added'
+    else
+        flash.now[:danger] = 'Ingredient wasn\'t added'
+        redirect_back_or ingredients_path
+    end
   end
 
   def show
