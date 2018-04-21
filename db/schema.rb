@@ -44,9 +44,7 @@ ActiveRecord::Schema.define(version: 20180419074953) do
 
   create_table "images", force: :cascade do |t|
     t.string "name", limit: 30, null: false
-    t.string "path", limit: 30, null: false
-    t.integer "width"
-    t.integer "height"
+    t.string "path", null: false
     t.string "depicted_type"
     t.bigint "depicted_id"
     t.bigint "added_by_id", null: false

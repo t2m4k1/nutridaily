@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
         log_in user
-        redirect_back user
+        redirect_back_or user
     else
         flash.now[:danger] = 'User can\'t log in'
         render 'new'
