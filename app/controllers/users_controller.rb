@@ -16,6 +16,17 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def create
+    @user = User.new(user_params)
+    if @user.save
+        log_in @user
+        redirect_back_or @user
+    else
+        flash.now[:danger] = 'Couldn\'t register user!'
+        render 'new'
+    end
+  end
+
   def update
     user = User.find(params[:id])
     if user.update_attributes(user_params)
@@ -25,17 +36,6 @@ class UsersController < ApplicationController
     else
       flash.now[:danger] = user.errors.full_messages
       render 'edit'
-    end
-  end
-
-  def create
-    user = User.new(user_params)
-    if user.save
-        log_in user
-        redirect_back_or user
-    else
-        flash.now[:danger] = 'User can\'t log in'
-        render 'new'
     end
   end
 

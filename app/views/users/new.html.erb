@@ -1,5 +1,6 @@
 <% provide(:title, 'Sign up') %>
 <%= form_for(@user) do |user_form| %>
+  <%= render 'shared/error_messages', object: @user %>
   <div class="vertical_user_input">
       <%= user_form.label :name %> <%= user_form.text_field :name %>
   </div>
