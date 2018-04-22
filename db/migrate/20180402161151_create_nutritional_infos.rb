@@ -1,7 +1,8 @@
 class CreateNutritionalInfos < ActiveRecord::Migration[5.1]
   def change
     create_table :nutritional_infos do |t|
-      t.string :measurement_name, limit: 12, null: false
+      t.integer :amount, null: false
+      t.string :unit, limit: 12, null: false
       t.integer :kcal, null: false
       t.float :protein, null: false
       t.float :carbohydrates, null: false

@@ -1,0 +1,2 @@
+class NutritionalInfosController < ApplicationController
+end

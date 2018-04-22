@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :recipes
   resources :subscriptions
   resources :images,        only: [:create, :destroy]
+  resources :ingredient_infos,        only: [:create, :destroy]
   get    '/login',   to: 'sessions#new'
   get    '/licenses',   to: 'licenses#index'
   post   '/login',   to: 'sessions#create'
