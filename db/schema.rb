@@ -84,7 +84,8 @@ ActiveRecord::Schema.define(version: 20180419074953) do
   end
 
   create_table "nutritional_infos", force: :cascade do |t|
-    t.string "measurement_name", limit: 12, null: false
+    t.integer "amount", null: false
+    t.string "unit", limit: 12, null: false
     t.integer "kcal", null: false
     t.float "protein", null: false
     t.float "carbohydrates", null: false
@@ -100,8 +101,8 @@ ActiveRecord::Schema.define(version: 20180419074953) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["added_by_id"], name: "index_nutritional_infos_on_added_by_id"
+    t.index ["amount", "unit"], name: "index_nutritional_infos_on_amount_and_unit", unique: true
     t.index ["ingredient_id"], name: "index_nutritional_infos_on_ingredient_id"
-    t.index ["measurement_name", "ingredient_id"], name: "index_nutritional_infos_on_measurement_name_and_ingredient_id", unique: true
   end
 
   create_table "recipe_steps", force: :cascade do |t|
@@ -121,13 +122,14 @@ ActiveRecord::Schema.define(version: 20180419074953) do
     t.string "name", limit: 50, null: false
     t.integer "serving_count", null: false
     t.boolean "is_drink", default: false
+    t.boolean "is_private", default: false
     t.bigint "language_id", null: false
     t.bigint "added_by_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["added_by_id"], name: "index_recipes_on_added_by_id"
     t.index ["language_id"], name: "index_recipes_on_language_id"
-    t.index ["name", "language_id"], name: "index_recipes_on_name_and_language_id", unique: true
+    t.index ["name", "added_by_id", "is_private", "language_id"], name: "index_recipe_name_addedby_priv_lang", unique: true
   end
 
   create_table "remember_digests", force: :cascade do |t|
