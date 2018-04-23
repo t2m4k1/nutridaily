@@ -11,6 +11,7 @@ class ImagesController < ApplicationController
           flash[:error] = @image.errors.full_messages
       end
   end
+
   def destroy
   end
 

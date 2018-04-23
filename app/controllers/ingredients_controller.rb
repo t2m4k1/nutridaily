@@ -7,12 +7,15 @@ class IngredientsController < ApplicationController
 
   def create
     @ingredient = Ingredient.new(ingredient_params)
-    @ingredient.added_by = current_user;
+    @ingredient.added_by = current_user
+    @ingredient.nutritional_infos.each do |nutritional_info|
+        nutritional_info.added_by = current_user
+    end
     if @ingredient.save
-        redirect_back_or ingredients_path
         flash.now[:success] = 'Ingredient was added'
+        redirect_back_or ingredients_path
     else
-        flash.now[:danger] = 'Ingredient wasn\'t added'
+        flash[:danger] = @ingredient.errors.full_messages #'Ingredient wasn\'t added'
         redirect_back_or ingredients_path
     end
   end
@@ -26,7 +29,7 @@ class IngredientsController < ApplicationController
   end
   private
   def ingredient_params
-    params.require(:ingredient).permit(:name, :language_id)
+    params.require(:ingredient).permit(:name, :language_id, nutritional_infos_attributes: [:amount, :unit, :kcal, :protein, :carbohydrates, :fat, :saturates, :alcohol, :sugar, :salt, :fibre, :price])
   end
 end
 
