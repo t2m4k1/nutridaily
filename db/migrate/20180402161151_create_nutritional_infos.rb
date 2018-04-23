@@ -1,8 +1,7 @@
 class CreateNutritionalInfos < ActiveRecord::Migration[5.1]
   def change
     create_table :nutritional_infos do |t|
-      t.integer :amount, null: false
-      t.string :unit, limit: 12, null: false
+      t.string :unit, null: false
       t.integer :kcal, null: false
       t.float :protein, null: false
       t.float :carbohydrates, null: false
@@ -17,6 +16,6 @@ class CreateNutritionalInfos < ActiveRecord::Migration[5.1]
       t.references :added_by, references: :user, null:false
       t.timestamps
     end
-    add_index :nutritional_infos, [:amount, :unit], unique: true
+    add_index :nutritional_infos, :unit, unique: true
   end
 end

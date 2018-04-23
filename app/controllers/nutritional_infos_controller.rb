@@ -1,7 +1,7 @@
 class NutritionalInfosController < ApplicationController
 def create
     raise
-    @nutritional_info = @ingredient.nutritional_infos.build(nutritional_info_params)
+    @nutritional_info = NutritionalInfo.new nutritional_info_params
     if @nutritional_info.save
         redirect_back_or @ingredient 
     else
