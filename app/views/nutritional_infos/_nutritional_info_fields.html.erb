@@ -1,6 +1,6 @@
 
 <%= f.label :unit %>
-<%= f.text_field :unit %>
+<%= f.select :unit, options_for_select(%w(g ml)) %>
 
 <%= f.label :kcal %>
 <%= f.text_field :kcal %>

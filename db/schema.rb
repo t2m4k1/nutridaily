@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(version: 20180424093225) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["added_by_id"], name: "index_nutritional_infos_on_added_by_id"
+    t.index ["ingredient_id", "unit"], name: "index_nutritional_infos_on_ingredient_id_and_unit", unique: true
     t.index ["ingredient_id"], name: "index_nutritional_infos_on_ingredient_id"
-    t.index ["unit"], name: "index_nutritional_infos_on_unit", unique: true
   end
 
   create_table "recipe_steps", force: :cascade do |t|

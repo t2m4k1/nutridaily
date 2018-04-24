@@ -16,6 +16,6 @@ class CreateNutritionalInfos < ActiveRecord::Migration[5.1]
       t.references :added_by, references: :user, null:false
       t.timestamps
     end
-    add_index :nutritional_infos, :unit, unique: true
+    add_index :nutritional_infos, [:ingredient_id, :unit], unique: true
   end
 end
