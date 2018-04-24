@@ -1,5 +1,7 @@
 class Ingredient < ApplicationRecord
   validates :nutritional_infos, presence: true
+  validates :name, presence: true, length: { maximum: 15 }
+
   belongs_to :added_by, class_name: 'User'
   has_many :nutritional_infos, dependent: :destroy
   has_many :recipe_steps, dependent: :destroy

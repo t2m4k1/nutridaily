@@ -9,7 +9,7 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.new(ingredient_params)
     @existingIngredient = Ingredient.find_by(name: @ingredient.name)
     if @existingIngredient && @existingIngredient.countries.include?(current_user.country)
-        flash.now[:info] = 'Ingredient already exists'
+        flash[:info] = 'Ingredient already exists'
         redirect_back_or ingredients_path
     else
         @ingredient.added_by = current_user
@@ -21,7 +21,7 @@ class IngredientsController < ApplicationController
             flash.now[:success] = 'Ingredient was added'
             redirect_back_or ingredients_path
         else
-            flash[:danger] = @ingredient.errors.full_messages #'Ingredient wasn\'t added'
+            flash[:danger] = 'Ingredient wasn\'t added'
             redirect_back_or ingredients_path
         end
     end
