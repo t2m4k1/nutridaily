@@ -1,4 +1,4 @@
-<%= render partial: 'ingredients/ingredient_list_item', collection: @ingredients %>
+<%= render partial: 'ingredients/ingredient_list_item', collection: @ingredients.order(:name) %>
 <% if logged_in? %>
     <button id="add-button">+</button>
     <%= render 'ingredients/ingredient_form' %>

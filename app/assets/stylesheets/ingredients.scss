@@ -1,3 +1,51 @@
 // Place all the styles related to the Ingredients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.ingredient_list_item{
+    width: 100%;
+    display: block;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    min-height: 60px;
+}
+
+#ingredient_name {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#ingredient_content{
+    display: inline-block;
+    vertical-align: center;
+    height: 100%;
+    width: 90%;
+    margin: 0 0 0 0;
+}
+
+#nutritional_info{
+    color: darkgrey;
+}
+
+.ingredient_list_item *{
+    font-family: Arial;
+}
+
+.ingredient_image_micro{
+    float: right;
+    margin-top: 0px;
+    margin-right: 10px;
+    display: inline-block;
+    width: 55px;
+    height: 100%;
+}
+
+.ingredient_image_micro img{
+    margin-top: 2.5px;
+    max-width: 100%;
+    max-height: 100%;
+    box-sizing: border-box;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
