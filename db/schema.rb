@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419074953) do
+ActiveRecord::Schema.define(version: 20180424093225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(version: 20180419074953) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_countries_on_name", unique: true
+  end
+
+  create_table "derived_measurements", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "amountInPercent", null: false
+    t.bigint "nutritional_info_id", null: false
+    t.bigint "added_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["added_by_id"], name: "index_derived_measurements_on_added_by_id"
+    t.index ["name", "nutritional_info_id"], name: "index_derived_measurements_on_name_and_nutritional_info_id", unique: true
+    t.index ["nutritional_info_id"], name: "index_derived_measurements_on_nutritional_info_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -84,8 +96,7 @@ ActiveRecord::Schema.define(version: 20180419074953) do
   end
 
   create_table "nutritional_infos", force: :cascade do |t|
-    t.integer "amount", null: false
-    t.string "unit", limit: 12, null: false
+    t.string "unit", null: false
     t.integer "kcal", null: false
     t.float "protein", null: false
     t.float "carbohydrates", null: false
@@ -101,20 +112,22 @@ ActiveRecord::Schema.define(version: 20180419074953) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["added_by_id"], name: "index_nutritional_infos_on_added_by_id"
-    t.index ["amount", "unit"], name: "index_nutritional_infos_on_amount_and_unit", unique: true
     t.index ["ingredient_id"], name: "index_nutritional_infos_on_ingredient_id"
+    t.index ["unit"], name: "index_nutritional_infos_on_unit", unique: true
   end
 
   create_table "recipe_steps", force: :cascade do |t|
     t.integer "number"
     t.text "description", null: false
     t.integer "duration", null: false
-    t.bigint "nutritional_info_id"
     t.float "measurement_multiplier"
     t.bigint "recipe_id"
+    t.bigint "info_or_measurement_id"
+    t.string "info_or_measurement_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["nutritional_info_id"], name: "index_recipe_steps_on_nutritional_info_id"
+    t.index ["info_or_measurement_id"], name: "index_recipe_steps_on_info_or_measurement_id"
+    t.index ["recipe_id", "number"], name: "index_recipe_steps_on_recipe_id_and_number", unique: true
     t.index ["recipe_id"], name: "index_recipe_steps_on_recipe_id"
   end
 
