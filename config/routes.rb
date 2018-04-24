@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     resources :images, only: [:create, :destroy]
   end
 
-  resources :ingredients
+  resources :ingredients do
+    resources :images, only: [:create, :destroy]
+  end
+
   resources :nutritional_infos, only: [:create, :destroy]
 
   resources :recipes

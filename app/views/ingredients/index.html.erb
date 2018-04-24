@@ -1,6 +1,6 @@
 <% @ingredients.each do |ingredient| %>
     </p>
-    <td><%= ingredient.name %></td>
+    <td><%= link_to ingredient.name, ingredient_path(ingredient) %></td>
     <td><%= ingredient.nutritional_infos.first.kcal %> kcal / 100<%= ingredient.nutritional_infos.first.unit %></td>
     <td> Protein: <%= ingredient.nutritional_infos.first.protein %></td>
     <td> Carbohydrates: <%= ingredient.nutritional_infos.first.carbohydrates %></td>
@@ -10,6 +10,12 @@
     <td> Salt: <%= ingredient.nutritional_infos.first.salt %></td>
     <td> Fibre: <%= ingredient.nutritional_infos.first.fibre %></td>
     <td> Alcohol: <%= ingredient.nutritional_infos.first.alcohol %></td>
+    <% if (ingImg = ingredient.images.order(:rating).first) %>
+        <div class="ingredient_micro">
+            <%= image_tag ingImg.path_url(:thumb).to_s %>
+        </div>
+    <% end %>
+
     </p>
 <% end %>
 <% if logged_in? %>
