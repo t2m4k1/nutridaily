@@ -3,6 +3,7 @@ class CreateRecipes < ActiveRecord::Migration[5.1]
     create_table :recipes do |t|
       t.string :name, limit: 50, null: false
       t.integer :serving_count, null: false
+      t.integer :price_category
       t.boolean :is_drink, default: false
       t.boolean :is_private, default: false
       t.references :language, null: false

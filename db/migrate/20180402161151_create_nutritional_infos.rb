@@ -11,7 +11,6 @@ class CreateNutritionalInfos < ActiveRecord::Migration[5.1]
       t.float :salt, null: false
       t.float :fibre
       t.float :alcohol
-      t.float :price
       t.references :ingredient
       t.references :added_by, references: :user, null:false
       t.timestamps
