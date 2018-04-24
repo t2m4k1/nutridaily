@@ -4,7 +4,7 @@ class CreateVotes < ActiveRecord::Migration[5.1]
       t.references :user, null: false
       t.references :voted_on, polymorphic: true
       t.string :voted_on_type
-      t.boolean :positive, null: false
+      t.integer :rating, null: false
       t.timestamps
     end
     add_index :votes, [:user_id, :voted_on_id, :voted_on_type], unique: true

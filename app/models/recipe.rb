@@ -1,6 +1,7 @@
 class Recipe < ApplicationRecord
   belongs_to :added_by, class_name: 'User'
   belongs_to :language
+  belongs_to :recipe_price_rating
 
   has_many :recipe_steps, dependent: :destroy
   has_many :cook_book_recipes, dependent: :destroy

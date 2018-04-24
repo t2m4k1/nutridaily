@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180424093225) do
+ActiveRecord::Schema.define(version: 20180424161756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20180424093225) do
   create_table "images", force: :cascade do |t|
     t.string "name", limit: 30, null: false
     t.string "path", null: false
+    t.integer "rating", default: 0
     t.string "depicted_type"
     t.bigint "depicted_id"
     t.bigint "added_by_id", null: false
@@ -106,7 +107,6 @@ ActiveRecord::Schema.define(version: 20180424093225) do
     t.float "salt", null: false
     t.float "fibre"
     t.float "alcohol"
-    t.float "price"
     t.bigint "ingredient_id"
     t.bigint "added_by_id", null: false
     t.datetime "created_at", null: false
@@ -114,6 +114,12 @@ ActiveRecord::Schema.define(version: 20180424093225) do
     t.index ["added_by_id"], name: "index_nutritional_infos_on_added_by_id"
     t.index ["ingredient_id", "unit"], name: "index_nutritional_infos_on_ingredient_id_and_unit", unique: true
     t.index ["ingredient_id"], name: "index_nutritional_infos_on_ingredient_id"
+  end
+
+  create_table "recipe_price_ratings", force: :cascade do |t|
+    t.float "average_rating", default: 0.0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "recipe_steps", force: :cascade do |t|
@@ -134,6 +140,7 @@ ActiveRecord::Schema.define(version: 20180424093225) do
   create_table "recipes", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.integer "serving_count", null: false
+    t.bigint "price_category_id", null: false
     t.boolean "is_drink", default: false
     t.boolean "is_private", default: false
     t.bigint "language_id", null: false
@@ -143,6 +150,7 @@ ActiveRecord::Schema.define(version: 20180424093225) do
     t.index ["added_by_id"], name: "index_recipes_on_added_by_id"
     t.index ["language_id"], name: "index_recipes_on_language_id"
     t.index ["name", "added_by_id", "is_private", "language_id"], name: "index_recipe_name_addedby_priv_lang", unique: true
+    t.index ["price_category_id"], name: "index_recipes_on_price_category_id"
   end
 
   create_table "remember_digests", force: :cascade do |t|
@@ -252,7 +260,7 @@ ActiveRecord::Schema.define(version: 20180424093225) do
     t.bigint "user_id", null: false
     t.string "voted_on_type"
     t.bigint "voted_on_id"
-    t.boolean "positive", null: false
+    t.integer "rating", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "voted_on_id", "voted_on_type"], name: "index_votes_on_user_id_and_voted_on_id_and_voted_on_type", unique: true
