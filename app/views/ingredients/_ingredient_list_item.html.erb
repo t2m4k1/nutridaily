@@ -6,18 +6,18 @@
             </span>
             <span id = 'nutritional_info'>
                 <%= ingredient_list_item.nutritional_infos.first.kcal %> kcal / 100<%= ingredient_list_item.nutritional_infos.first.unit %>
-                 Protein: <%= ingredient_list_item.nutritional_infos.first.protein %>
+                Protein: <%= ingredient_list_item.nutritional_infos.first.protein %>
 
-                         Carbohydrates: <%= ingredient_list_item.nutritional_infos.first.carbohydrates %>
-                            Sugar:<%= ingredient_list_item.nutritional_infos.first.sugar %>
-                         Fat: <%= ingredient_list_item.nutritional_infos.first.fat %>
-                            Saturates:<%= ingredient_list_item.nutritional_infos.first.saturates %>
-                     Salt: <%= ingredient_list_item.nutritional_infos.first.salt %>
+                Carbohydrates: <%= ingredient_list_item.nutritional_infos.first.carbohydrates %>
+                (Sugar: <%= ingredient_list_item.nutritional_infos.first.sugar %>)
+                Fat: <%= ingredient_list_item.nutritional_infos.first.fat %>  
+                (Saturates:<%= ingredient_list_item.nutritional_infos.first.saturates %>)
+                Salt: <%= ingredient_list_item.nutritional_infos.first.salt %>
                 <% if ingredient_list_item.nutritional_infos.first.fibre%>
-                         Fibre: <%= ingredient_list_item.nutritional_infos.first.fibre %>
+                    Fibre: <%= ingredient_list_item.nutritional_infos.first.fibre %>
                 <% end %>
                 <% if ingredient_list_item.nutritional_infos.first.alcohol%>
-                         Alcohol: <%= ingredient_list_item.nutritional_infos.first.alcohol %>
+                    Alcohol: <%= ingredient_list_item.nutritional_infos.first.alcohol %>
                 <% end %>
             </span>
         </span>

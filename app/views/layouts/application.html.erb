@@ -15,8 +15,10 @@
               <li> <%= link_to "recipes", recipes_path, :class => current_class?(recipes_path) %> </li>
               <li> <%= link_to "ingredients", ingredients_path, :class => current_class?(ingredients_path) %> </li>
               <% if logged_in? && current_user %>
-                  <span class="right"><li class="right"> <%= link_to "log out", logout_path, method: :delete %> </li></span>
-                  <span class="right"><li> <%= link_to "profile", current_user, :class => current_class?(current_user) %> </li></span>
+                  <span class="right"> 
+                      <span><li> <%= link_to "profile", current_user, :class => current_class?(current_user) %> </li></span>
+                      <span class="right"><li class="right"> <%= link_to "log out", logout_path, method: :delete %> </li></span>
+                  </span>
               <% else %>
                   <span class="right"><li> <%= link_to "log in", login_path, :class => current_class?(login_path) %> </li></span>
                   <span class="right"><li> <%= link_to "register", new_user_path, :class => current_class?(new_user_path) %> </li></span>
