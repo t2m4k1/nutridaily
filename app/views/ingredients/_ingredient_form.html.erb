@@ -1,8 +1,6 @@
 <%= form_for ingredient = Ingredient.new do |user_form| %>
       <%= render 'shared/error_messages', object: user_form.object %>
       <%= user_form.label :name %> <%= user_form.text_field :name %>
-      <%= user_form.label :language_id %>
-      <%= user_form.select :language_id, options_for_select(current_user.languages.map{|s|[s.name, s.id]}) %>
       <%= user_form.fields_for :nutritional_infos, ingredient.nutritional_infos.build do |g| %>
           <%= render 'shared/error_messages', object: g.object %>
           <%= render 'nutritional_infos/nutritional_info_fields', f: g %>

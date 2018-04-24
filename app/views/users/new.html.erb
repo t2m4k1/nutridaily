@@ -17,12 +17,6 @@
       <%= user_form.label :country_id %>
       <%= user_form.select :country_id, options_for_select(Country.all.map{|s|[s.name, s.id]}) %>
   </div>
-  <%= user_form.fields_for :user_languages, @user.user_languages do |userlangs_form| %>
-      <div class="vertical_user_input">
-      <%= userlangs_form.label :language_id %>
-      <%= userlangs_form.select :language_id, options_for_select(Language.all.map{|s|[s.name, s.id]}) %>
-      </div>
-  <% end %>
   <div class="vertical_user_input">
       <%= user_form.submit %>
   </div>

@@ -6,8 +6,6 @@ class Ingredient < ApplicationRecord
 
   has_many :ingredient_countries, dependent: :destroy
   has_many :countries, :through => :ingredient_countries
-  
-  belongs_to :language
 
   has_many :report_cases, as: :reported, dependent: :destroy
   has_many :images, as: :depicted, dependent: :destroy

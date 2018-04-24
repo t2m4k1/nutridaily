@@ -7,20 +7,15 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :authentication_id, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
-  validates :user_languages, presence: true
   validates :country, presence: true
   enum permission_level: {user: 0, moderator: 100, admin: 9999}
 
   has_secure_password
   has_secure_token :authentication_id
 
-
-  belongs_to :country, optional: true
+  belongs_to :country
 
   has_many :remember_digests, dependent: :destroy
-
-  has_many :user_languages, dependent: :destroy
-  has_many :languages, :through => :user_languages
 
   has_many :ingredients, foreign_key: :added_by
   has_many :nutritional_infos, foreign_key: :added_by
@@ -40,7 +35,7 @@ class User < ApplicationRecord
 
   has_many :votes, dependent: :destroy
   
-  accepts_nested_attributes_for :user_languages, :images
+  accepts_nested_attributes_for :images
   
   def find_fitting_digest(remember_token)
     self.remember_digests.each do |remember_digest|

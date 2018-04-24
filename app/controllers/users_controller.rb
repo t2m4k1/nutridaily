@@ -9,7 +9,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @user.user_languages.build
   end
 
   def edit

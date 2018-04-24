@@ -6,6 +6,6 @@ class CreateCookBooks < ActiveRecord::Migration[5.1]
       t.boolean :private, null: false
       t.timestamps
     end
-    add_index :cook_books, [:name, :added_by_id], unique: true
+    add_index :cook_books, [:name, :added_by_id, :private], unique: true
   end
 end

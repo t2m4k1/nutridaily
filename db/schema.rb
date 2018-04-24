@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20180424161756) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["added_by_id"], name: "index_cook_books_on_added_by_id"
-    t.index ["name", "added_by_id"], name: "index_cook_books_on_name_and_added_by_id", unique: true
+    t.index ["name", "added_by_id", "private"], name: "index_cook_books_on_name_and_added_by_id_and_private", unique: true
   end
 
   create_table "countries", force: :cascade do |t|
@@ -80,20 +80,11 @@ ActiveRecord::Schema.define(version: 20180424161756) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name", limit: 40, null: false
-    t.bigint "language_id", null: false
     t.bigint "added_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["added_by_id"], name: "index_ingredients_on_added_by_id"
-    t.index ["language_id"], name: "index_ingredients_on_language_id"
-    t.index ["name", "language_id"], name: "index_ingredients_on_name_and_language_id", unique: true
-  end
-
-  create_table "languages", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_languages_on_name", unique: true
+    t.index ["name"], name: "index_ingredients_on_name", unique: true
   end
 
   create_table "nutritional_infos", force: :cascade do |t|
@@ -107,7 +98,7 @@ ActiveRecord::Schema.define(version: 20180424161756) do
     t.float "salt", null: false
     t.float "fibre"
     t.float "alcohol"
-    t.bigint "ingredient_id"
+    t.bigint "ingredient_id", null: false
     t.bigint "added_by_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -143,13 +134,11 @@ ActiveRecord::Schema.define(version: 20180424161756) do
     t.bigint "price_category_id", null: false
     t.boolean "is_drink", default: false
     t.boolean "is_private", default: false
-    t.bigint "language_id", null: false
     t.bigint "added_by_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["added_by_id"], name: "index_recipes_on_added_by_id"
-    t.index ["language_id"], name: "index_recipes_on_language_id"
-    t.index ["name", "added_by_id", "is_private", "language_id"], name: "index_recipe_name_addedby_priv_lang", unique: true
+    t.index ["name", "added_by_id", "is_private"], name: "index_recipe_name_addedby_priv", unique: true
     t.index ["price_category_id"], name: "index_recipes_on_price_category_id"
   end
 
@@ -179,24 +168,13 @@ ActiveRecord::Schema.define(version: 20180424161756) do
 
   create_table "report_categories", force: :cascade do |t|
     t.string "name"
-    t.string "reported_type"
+    t.string "reported_type", null: false
     t.integer "score_impact"
     t.integer "minimum_score"
     t.integer "minimum_permission_level", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_report_categories_on_name"
-  end
-
-  create_table "report_category_languages", force: :cascade do |t|
-    t.bigint "report_category_id", null: false
-    t.bigint "language_id", null: false
-    t.string "translation", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["language_id"], name: "index_report_category_languages_on_language_id"
-    t.index ["report_category_id", "language_id"], name: "index_report_category_translation", unique: true
-    t.index ["report_category_id"], name: "index_report_category_languages_on_report_category_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -228,26 +206,16 @@ ActiveRecord::Schema.define(version: 20180424161756) do
     t.index ["tagged_type", "tagged_id"], name: "index_tags_on_tagged_type_and_tagged_id"
   end
 
-  create_table "user_languages", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "language_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["language_id"], name: "index_user_languages_on_language_id"
-    t.index ["user_id", "language_id"], name: "index_user_languages_on_user_id_and_language_id", unique: true
-    t.index ["user_id"], name: "index_user_languages_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "authentication_id"
     t.string "name", limit: 25, null: false
     t.string "email", limit: 50, null: false
     t.string "password_digest", null: false
+    t.bigint "country_id", null: false
     t.text "biography"
     t.boolean "verified_email", default: false
     t.integer "score", default: 0
     t.integer "permission_level", default: 0
-    t.bigint "country_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["authentication_id"], name: "index_users_on_authentication_id", unique: true
