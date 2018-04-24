@@ -1,23 +1,4 @@
-<% @ingredients.each do |ingredient| %>
-    </p>
-    <td><%= link_to ingredient.name, ingredient_path(ingredient) %></td>
-    <td><%= ingredient.nutritional_infos.first.kcal %> kcal / 100<%= ingredient.nutritional_infos.first.unit %></td>
-    <td> Protein: <%= ingredient.nutritional_infos.first.protein %></td>
-    <td> Carbohydrates: <%= ingredient.nutritional_infos.first.carbohydrates %></td>
-    <td>    Sugar:<%= ingredient.nutritional_infos.first.sugar %></td>
-    <td> Fat: <%= ingredient.nutritional_infos.first.fat %></td>
-    <td>    Saturates:<%= ingredient.nutritional_infos.first.saturates %></td>
-    <td> Salt: <%= ingredient.nutritional_infos.first.salt %></td>
-    <td> Fibre: <%= ingredient.nutritional_infos.first.fibre %></td>
-    <td> Alcohol: <%= ingredient.nutritional_infos.first.alcohol %></td>
-    <% if (ingImg = ingredient.images.order(:rating).first) %>
-        <div class="ingredient_micro">
-            <%= image_tag ingImg.path_url(:thumb).to_s %>
-        </div>
-    <% end %>
-
-    </p>
-<% end %>
+<%= render partial: 'ingredients/ingredient_list_item', collection: @ingredients %>
 <% if logged_in? %>
     <button id="add-button">+</button>
     <%= render 'ingredients/ingredient_form' %>

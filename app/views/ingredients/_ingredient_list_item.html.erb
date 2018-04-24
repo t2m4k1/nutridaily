@@ -1,0 +1,21 @@
+<p>
+<td><%= link_to ingredient_list_item.name, ingredient_path(ingredient_list_item) %></td>
+<td><%= ingredient_list_item.nutritional_infos.first.kcal %> kcal / 100<%= ingredient_list_item.nutritional_infos.first.unit %></td>
+<td> Protein: <%= ingredient_list_item.nutritional_infos.first.protein %></td>
+<td> Carbohydrates: <%= ingredient_list_item.nutritional_infos.first.carbohydrates %></td>
+<td>    Sugar:<%= ingredient_list_item.nutritional_infos.first.sugar %></td>
+<td> Fat: <%= ingredient_list_item.nutritional_infos.first.fat %></td>
+<td>    Saturates:<%= ingredient_list_item.nutritional_infos.first.saturates %></td>
+<td> Salt: <%= ingredient_list_item.nutritional_infos.first.salt %></td>
+<% if ingredient_list_item.nutritional_infos.first.fibre%>
+<td> Fibre: <%= ingredient_list_item.nutritional_infos.first.fibre %></td>
+<% end %>
+<% if ingredient_list_item.nutritional_infos.first.alcohol%>
+    <td> Alcohol: <%= ingredient_list_item.nutritional_infos.first.alcohol %></td>
+<% end %>
+<% if (ingImg = ingredient_list_item.images.order(:rating).first) %>
+    <div class="ingredient_micro">
+        <%= image_tag ingImg.path_url(:thumb).to_s %>
+    </div>
+<% end %>
+</p>
