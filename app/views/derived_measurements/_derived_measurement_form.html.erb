@@ -1,0 +1,14 @@
+<%= form_for @derived_measurement do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :amountInPercent %>
+    <%= f.text_field :amountInPercent %>
+
+    <%= f.label :nutritional_info_id %>
+    <%= f.select :nutritional_info_id, options_for_select(@ingredient.nutritional_infos.all.map{|s|[s.unit, s.id]}) %>
+
+    <%= f.submit %>
+<% end %>
+

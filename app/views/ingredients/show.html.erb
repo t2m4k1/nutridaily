@@ -1,8 +1,9 @@
 <%= @ingredient.name %>
 <p>
 </p>
-<div id = "submit_image"> <%= render partial: 'images/image_form', locals: {depicted: @ingredient} %> </div>
+<div id = "submit_image"> <%= render partial: 'images/image_form', locals: {depicted: @ingredient, image: @ingredient.images.build} %> </div>
 <% @ingredient.images.order(:rating).each do |image| %>
     <%= image_tag image.path_url.to_s %>
 <% end %>
 
+<%= render partial: 'derived_measurements/derived_measurement_form' %>

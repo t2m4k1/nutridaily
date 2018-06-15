@@ -4,7 +4,7 @@
     <div class = "user_text"> Subscribers: <%= @user.subscribers.length %></div>
     <div class = "user_text">Subscriptions: <%= @user.subscriptions.where(subscribed_to_type: "User").length %></div>
     <div class = "user_text"> <%= link_to "Edit Profile", edit_user_path(current_user) %> </div>
-    <div id = "submit_image"> <%= render partial: 'images/image_form', locals: {depicted: @user} %> </div>
+    <div id = "submit_image"> <%= render partial: 'images/image_form', locals: {depicted: @user, image: @user.images.build} %> </div>
 
 <% else %>
     Viewing Profile of: <%= @user.name %>

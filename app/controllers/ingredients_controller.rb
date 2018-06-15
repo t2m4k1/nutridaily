@@ -1,10 +1,6 @@
 class IngredientsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
 
-  def new
-    @ingredient = Ingredient.new
-  end
-
   def create
     @ingredient = Ingredient.new(ingredient_params)
     @existingIngredient = Ingredient.find_by(name: @ingredient.name)
@@ -18,7 +14,7 @@ class IngredientsController < ApplicationController
             nutritional_info.added_by = current_user
         end
         if @ingredient.save
-            flash.now[:success] = 'Ingredient was added'
+            flash[:success] = 'Ingredient was added'
             redirect_back_or ingredients_path
         else
             flash[:danger] = 'Ingredient wasn\'t added'
@@ -29,6 +25,7 @@ class IngredientsController < ApplicationController
 
   def show
     @ingredient = Ingredient.find(params[:id])
+    @derived_measurement = @ingredient.nutritional_infos.first.derived_measurements.build
   end
 
   def index

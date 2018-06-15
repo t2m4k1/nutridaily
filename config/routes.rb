@@ -5,11 +5,12 @@ Rails.application.routes.draw do
     resources :images, only: [:create, :destroy]
   end
 
-  resources :ingredients do
+  resources :ingredients, except: [:new] do
     resources :images, only: [:create, :destroy]
   end
 
   resources :nutritional_infos, only: [:create, :destroy]
+  resources :derived_measurements, only: [:create, :destroy]
 
   resources :recipes
   resources :subscriptions
